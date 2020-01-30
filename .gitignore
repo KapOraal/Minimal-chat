@@ -2,3 +2,4 @@ ebin/*.beam
 *.beam
 /.settings
 .project
+/ebin/

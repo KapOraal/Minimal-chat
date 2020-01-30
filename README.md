@@ -8,11 +8,17 @@ Running
 ### Server
 ```
 erl
-c(echo_server).
-echo_server:start_server(4000).
+```
+
+```
+c(server).
+```
+
+```
+server:start(4000).
 ```
 
 ### Client
 ```
-telnet 127.0.0.1 6667
+telnet localhost 4000
 ```
