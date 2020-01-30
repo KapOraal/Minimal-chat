@@ -5,7 +5,7 @@ https://learnyousomeerlang.com/buckets-of-sockets#tcp-sockets
 
 Running
 -----------
-### Server : goto src file
+### Server
 ```
 erl
 c(echo_server).
