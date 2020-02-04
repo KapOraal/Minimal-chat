@@ -46,6 +46,9 @@ loop(S) ->
       io:format("~p has joined the chat room~n", [Username]),
       JoinMessage = Username ++ " a rejoint le chat!\n",
       broadcast_message(JoinMessage, From, S#state.clients),
+	  
+	  io:format("Send messsage history to ~p.~n", [Username]),
+      send_history(From, lists:reverse(S#state.message_history)),
 
       UpdatedClients = orddict:store(Username, From, S#state.clients),
       loop(S#state{clients = UpdatedClients});
@@ -82,3 +85,9 @@ broadcast_message(Message, Client, Clients) ->
   BroadList = lists:filter(fun({_Username, UserPid}) -> UserPid =/= Client
                            end, Clients),
   lists:map(fun({_Username, UserPid}) -> UserPid ! {receive_message, Message} end, BroadList).
+
+%% Send history message to the news user
+send_history(_Client, []) -> ok;
+send_history(Client, [Message | MessageHistory]) ->
+  Client ! {receive_message, Message},
+  send_history(Client, MessageHistory).
